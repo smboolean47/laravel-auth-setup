@@ -128,3 +128,68 @@ public function index()
     return response()->json($posts);
 }
 ```
+
+## Vue Router 
+Installiamo il pacchetto vue router ```npm install vue-router```
+
+### Gestire le rotte
+Rindirizzo tutto le richeste verso la pagina vue
+```php
+// /routes/web.php
+
+Route::get("{any?}", function() {
+    return view("front");
+})->where("any", ".*");
+```
+
+Aggiunto il tag nel main
+```<router-view></router-view>```
+
+Creo il file delle rotte per il Vue router
+```js
+// resources/js/router.js
+
+import Vue from "vue";
+import VueRouter from "vue-router";
+
+Vue.use(VueRouter);
+
+import Home from "./pages/Home";
+const router = new VueRouter({
+    mode: "history",
+    routes: [
+        {
+            path: "/",
+            name: "home",
+            component: Home
+        },
+    ]
+});
+
+export default router
+```
+### Importiamo il file router.js e aggiungiamolo all'istanza Vue
+```js
+// resources/js/front.js
+
+window.axios = require('axios');
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.Vue = require('vue');
+
+import App from './App.vue';
+
+// aggiungiamo l'import del file router.js
+import router from "./router";
+const app = new Vue({
+    el: '#root',
+    render: h => h(App),
+		// aggiungiamo l'oggetto router all'istanza Vue
+		router
+});
+```
+
+### Link fra le pagine
+```<router-link :to="{ name: routeName }">Label</router-link>```
+Con parametro dinamico
+```<router-link :to="{ name: routeName, params: { slug:slug } }">Label</router-link>```
+
