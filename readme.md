@@ -130,7 +130,7 @@ public function index()
 ```
 
 ## Vue Router 
-Installiamo il pacchetto vue router ```npm install vue-router```
+Installiamo il pacchetto vue router ```npm i vue-router@3.5.3```
 
 ### Gestire le rotte
 Rindirizzo tutto le richeste verso la pagina vue
